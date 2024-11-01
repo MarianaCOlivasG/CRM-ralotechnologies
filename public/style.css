@@ -53,7 +53,7 @@ body {
 
 .menu-item:hover,
 .menu-item.active {
-    background-color: #bc1a73;
+    background-color: #19BC9C;
     padding-left: 30px;
 }
 
@@ -76,7 +76,7 @@ body {
 }
 
 .add-lead-button {
-    background-color: #bc1a73;
+    background-color: #19BC9C;
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -97,7 +97,7 @@ body {
 }
 
 .breadcrumb a {
-    color: #bc1a73;
+    color: #19BC9C;
     text-decoration: none;
 }
 
@@ -175,7 +175,7 @@ body {
 
 .action-button {
     padding: 6px 12px;
-    background-color: #bc1a73;
+    background-color: #19BC9C;
     color: #ffffff;
     border: none;
     border-radius: 3px;
