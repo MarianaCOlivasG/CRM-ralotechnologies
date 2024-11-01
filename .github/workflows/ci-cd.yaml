@@ -26,8 +26,8 @@ jobs:
           # Iniciar sesión en Docker Hub
           echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
 
-          # Construir la imagen de Docker
-          docker build -t $IMAGE_NAME .
+          # Construir la imagen de Docker sin usar caché
+          docker build --no-cache -t $IMAGE_NAME .
 
           # Subir la imagen a Docker Hub (sobrescribir si existe)
           docker push $IMAGE_NAME
