@@ -1,4 +1,4 @@
-name: Deploy MySQL to EC2
+name: Deploy My App to EC2
 
 on:
   push:
@@ -18,7 +18,21 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.EC2_PEM_KEY }}
 
-      - name: Deploy MySQL on EC2
+      - name: Build and Push Docker Image
+        run: |
+          # Variables de entorno
+          IMAGE_NAME="mariana/crm:1.0"
+
+          # Iniciar sesión en Docker Hub
+          echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+
+          # Construir la imagen de Docker
+          docker build -t $IMAGE_NAME .
+
+          # Subir la imagen a Docker Hub (sobrescribir si existe)
+          docker push $IMAGE_NAME
+
+      - name: Deploy My App on EC2
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
             # Actualiza los paquetes y asegúrate de que Docker esté instalado
@@ -29,16 +43,15 @@ jobs:
             sudo systemctl start docker
             sudo systemctl enable docker
 
-            # Descargar la imagen de MySQL
-            sudo docker pull mysql:latest
+            # Parar y eliminar el contenedor si ya existe
+            if [ "$(sudo docker ps -q -f name=myapp-container)" ]; then
+              sudo docker stop myapp-container
+              sudo docker rm myapp-container
+            fi
 
-            # Ejecuta el contenedor de MySQL en el puerto 3306
+            # Ejecuta el contenedor de la aplicación
             sudo docker run -d \
-              -e MYSQL_ROOT_PASSWORD=my-secret-password \
-              -e MYSQL_DATABASE=mydatabase \
-              -e MYSQL_USER=myuser \
-              -e MYSQL_PASSWORD=myuserpassword \
-              -p 3306:3306 \
-              --name mysql-container \
-              mysql:latest
+              -p 80:3000 \
+              --name myapp-container \
+              mariana/crm:1.0
           EOF
