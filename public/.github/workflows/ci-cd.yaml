@@ -1,0 +1,44 @@
+name: Deploy MySQL to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.EC2_PEM_KEY }}
+
+      - name: Deploy MySQL on EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+            # Actualiza los paquetes y asegúrate de que Docker esté instalado
+            sudo apt update -y
+            sudo apt install -y docker.io
+
+            # Inicia Docker si no está en ejecución
+            sudo systemctl start docker
+            sudo systemctl enable docker
+
+            # Descargar la imagen de MySQL
+            sudo docker pull mysql:latest
+
+            # Ejecuta el contenedor de MySQL en el puerto 3306
+            sudo docker run -d \
+              -e MYSQL_ROOT_PASSWORD=my-secret-password \
+              -e MYSQL_DATABASE=mydatabase \
+              -e MYSQL_USER=myuser \
+              -e MYSQL_PASSWORD=myuserpassword \
+              -p 3306:3306 \
+              --name mysql-container \
+              mysql:latest
+          EOF
