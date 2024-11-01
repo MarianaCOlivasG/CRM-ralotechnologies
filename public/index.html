@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional CRM - Leads Management</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- CDN de Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>CRM Dashboard</h2>
+            </div>
+            <nav class="sidebar-menu">
+                <a href="#" class="menu-item active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                <a href="#" class="menu-item"><i class="fas fa-user-friends"></i> Leads</a>
+                <a href="#" class="menu-item"><i class="fas fa-briefcase"></i> Opportunities</a>
+                <a href="#" class="menu-item"><i class="fas fa-address-book"></i> Contacts</a>
+                <a href="#" class="menu-item"><i class="fas fa-chart-line"></i> Reports</a>
+                <a href="#" class="menu-item"><i class="fas fa-cogs"></i> Settings</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <h1>Leads Management</h1>
+                <button class="add-lead-button">+ Add Lead</button>
+            </header>
+
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <a href="#">Home</a> &gt;
+                <a href="#">Leads</a>
+            </div>
+
+            <!-- Content -->
+            <div class="content">
+                <!-- Statistics -->
+                <section class="statistics">
+                    <div class="stat-card">
+                        <h3>Total Leads</h3>
+                        <p>320</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>New This Month</h3>
+                        <p>40</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Conversions</h3>
+                        <p>12%</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Follow-ups</h3>
+                        <p>85</p>
+                    </div>
+                </section>
+
+                <!-- Leads Table -->
+                <section class="leads-section">
+                    <h2>Recent Leads</h2>
+                    <table class="leads-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Source</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>John Doe</td>
+                                <td>john.doe@example.com</td>
+                                <td>(123) 456-7890</td>
+                                <td>Website</td>
+                                <td><span class="status new">New</span></td>
+                                <td><button class="action-button">View</button></td>
+                            </tr>
+                            <tr>
+                                <td>Jane Smith</td>
+                                <td>jane.smith@example.com</td>
+                                <td>(987) 654-3210</td>
+                                <td>Referral</td>
+                                <td><span class="status converted">Converted</span></td>
+                                <td><button class="action-button">View</button></td>
+                            </tr>
+                            <tr>
+                                <td>Mark Johnson</td>
+                                <td>mark.j@example.com</td>
+                                <td>(555) 123-4567</td>
+                                <td>Social Media</td>
+                                <td><span class="status follow-up">Follow-Up</span></td>
+                                <td><button class="action-button">View</button></td>
+                            </tr>
+                            <tr>
+                                <td>Lisa Ray</td>
+                                <td>lisa.ray@example.com</td>
+                                <td>(800) 222-3344</td>
+                                <td>Email Campaign</td>
+                                <td><span class="status lost">Lost</span></td>
+                                <td><button class="action-button">View</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- Charts Section -->
+                <section class="charts-section">
+                    <h2>Leads Analysis</h2>
+                    <div class="chart-container">
+                        <canvas id="leadsSourceChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="conversionRateChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="leadStageChart"></canvas>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
